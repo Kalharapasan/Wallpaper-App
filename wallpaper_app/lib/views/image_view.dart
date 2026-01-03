@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:gal/gal.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 
 class ImageView extends StatefulWidget {
@@ -46,22 +47,20 @@ class _ImageViewState extends State<ImageView> {
       var response = await http.get(Uri.parse(widget.imgUrl));
       
       if (response.statusCode == 200) {
+        // Save image temporarily
+        final tempDir = await getTemporaryDirectory();
+        final fileName = 'wallpaper_${DateTime.now().millisecondsSinceEpoch}.jpg';
+        final file = File('${tempDir.path}/$fileName');
+        await file.writeAsBytes(response.bodyBytes);
+        
         // Save to gallery
-        final result = await ImageGallerySaver.saveImage(
-          Uint8List.fromList(response.bodyBytes),
-          quality: 100,
-          name: "wallpaper_${DateTime.now().millisecondsSinceEpoch}",
-        );
+        await Gal.putImage(file.path);
 
         setState(() {
           _isDownloading = false;
         });
 
-        if (result['isSuccess']) {
-          _showSnackBar("Wallpaper saved to gallery!", Colors.green);
-        } else {
-          _showSnackBar("Failed to save wallpaper", Colors.red);
-        }
+        _showSnackBar("Wallpaper saved to gallery!", Colors.green);
       } else {
         setState(() {
           _isDownloading = false;
