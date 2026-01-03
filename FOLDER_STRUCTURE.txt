@@ -1,0 +1,269 @@
+COMPLETE WALLPAPERHUB PROJECT STRUCTURE
+========================================
+
+wallpaper_app/
+│
+├── android/
+│   ├── app/
+│   │   ├── src/
+│   │   │   └── main/
+│   │   │       └── AndroidManifest.xml           ⭐ REPLACE THIS FILE
+│   │   └── build.gradle
+│   ├── gradle/
+│   ├── build.gradle
+│   └── settings.gradle
+│
+├── ios/
+│   └── (iOS configuration files)
+│
+├── lib/
+│   ├── main.dart                                 ⭐ MAIN ENTRY POINT
+│   │
+│   ├── data/
+│   │   └── data.dart                            ⭐ API KEY & CATEGORIES
+│   │
+│   ├── model/
+│   │   ├── categories_model.dart                 ⭐ CATEGORY MODEL
+│   │   └── wallpaper_model.dart                  ⭐ WALLPAPER MODEL
+│   │
+│   ├── views/
+│   │   ├── home.dart                            ⭐ HOME SCREEN
+│   │   ├── search.dart                          ⭐ SEARCH SCREEN
+│   │   ├── categorie.dart                       ⭐ CATEGORY SCREEN
+│   │   └── image_view.dart                      ⭐ FULL IMAGE VIEW
+│   │
+│   └── widgets/
+│       └── widgets.dart                          ⭐ REUSABLE WIDGETS
+│
+├── test/
+│   └── widget_test.dart
+│
+├── pubspec.yaml                                  ⭐ DEPENDENCIES FILE
+├── README.md                                     ⭐ PROJECT DOCUMENTATION
+├── SETUP_GUIDE.md                               ⭐ SETUP INSTRUCTIONS
+└── .gitignore
+
+
+FILES TO CREATE/REPLACE (⭐ marked above):
+==========================================
+
+1. lib/main.dart
+   - App entry point
+   - Material app configuration
+   - Theme settings
+
+2. lib/data/data.dart
+   - Pexels API key
+   - Category data
+   - Helper functions
+
+3. lib/model/categories_model.dart
+   - Category data model
+   - Constructor
+
+4. lib/model/wallpaper_model.dart
+   - Wallpaper data model
+   - SrcModel for image URLs
+   - JSON parsing
+
+5. lib/views/home.dart
+   - Home screen layout
+   - Trending wallpapers
+   - Category list
+   - Search bar
+
+6. lib/views/search.dart
+   - Search functionality
+   - Search results display
+   - Search input handling
+
+7. lib/views/categorie.dart
+   - Category-specific wallpapers
+   - Category title display
+   - API integration
+
+8. lib/views/image_view.dart
+   - Full-screen image view
+   - Download functionality
+   - Set wallpaper functionality
+   - Permission handling
+
+9. lib/widgets/widgets.dart
+   - Wallpaper grid widget
+   - Brand name widget
+   - Reusable components
+
+10. android/app/src/main/AndroidManifest.xml
+    - App permissions
+    - Internet access
+    - Storage permissions
+    - Wallpaper permissions
+
+11. pubspec.yaml
+    - All dependencies
+    - Project configuration
+    - Asset declarations
+
+
+FOLDERS YOU NEED TO CREATE:
+============================
+
+If they don't exist, create these folders in lib/:
+- lib/data/
+- lib/model/
+- lib/views/
+- lib/widgets/
+
+
+KEY DEPENDENCIES IN pubspec.yaml:
+==================================
+
+http: ^1.1.0                    → API calls to Pexels
+cached_network_image: ^3.3.0   → Efficient image loading
+flutter_cache_manager: ^3.3.1  → Cache management
+image_gallery_saver: ^2.0.3    → Save images to gallery
+flutter_wallpaper_manager: ^0.0.3 → Set device wallpaper
+permission_handler: ^11.0.1     → Handle Android permissions
+path_provider: ^2.1.1           → File system access
+
+
+IMPORTANT FILES TO MODIFY:
+===========================
+
+1. lib/data/data.dart
+   - MUST add your Pexels API key here
+   - Line: String apiKey = "YOUR_KEY_HERE";
+
+2. android/app/src/main/AndroidManifest.xml
+   - Already configured with all needed permissions
+   - Just replace the file
+
+3. pubspec.yaml
+   - Already has all required dependencies
+   - Just replace the file
+
+
+QUICK SETUP CHECKLIST:
+======================
+
+□ Create Flutter project: flutter create wallpaper_app
+□ Create folders: data, model, views, widgets in lib/
+□ Copy all 9 .dart files to correct locations
+□ Replace pubspec.yaml
+□ Replace AndroidManifest.xml
+□ Get Pexels API key from pexels.com/api
+□ Add API key to lib/data/data.dart
+□ Run: flutter pub get
+□ Run: flutter run
+
+
+APP FEATURES:
+=============
+
+✓ Browse trending wallpapers
+✓ Search wallpapers by keyword
+✓ Browse wallpapers by category
+✓ View wallpapers full-screen
+✓ Download wallpapers to gallery
+✓ Set as home/lock screen wallpaper
+✓ Beautiful Material Design UI
+✓ Image caching for performance
+✓ Loading states and error handling
+✓ Smooth animations and transitions
+
+
+PERMISSIONS REQUIRED:
+=====================
+
+Android Manifest includes:
+- INTERNET (for API calls)
+- WRITE_EXTERNAL_STORAGE (Android ≤12)
+- READ_EXTERNAL_STORAGE (Android ≤12)
+- READ_MEDIA_IMAGES (Android ≥13)
+- SET_WALLPAPER (to set wallpaper)
+
+
+HOW FILES CONNECT:
+==================
+
+main.dart
+    ↓
+  Home (home.dart)
+    ↓
+    ├─→ Search (search.dart) ─→ ImageView (image_view.dart)
+    ├─→ Category (categorie.dart) ─→ ImageView
+    └─→ ImageView
+    
+All views use:
+- widgets.dart (for wallpaper grid)
+- data.dart (for API key)
+- wallpaper_model.dart (for data structure)
+- categories_model.dart (for categories)
+
+
+AFTER SETUP, TEST:
+==================
+
+1. App launches
+2. Trending wallpapers load
+3. Search works (try "ocean")
+4. Categories work (tap "Nature")
+5. Full-screen view opens
+6. Download saves to gallery
+7. Set wallpaper changes device wallpaper
+
+
+BUILD RELEASE APK:
+==================
+
+flutter build apk --release
+
+Output location:
+build/app/outputs/flutter-apk/app-release.apk
+
+
+TROUBLESHOOTING:
+================
+
+Error: "Pub get failed"
+Fix: flutter clean && flutter pub get
+
+Error: "SDK version error"
+Fix: Check Flutter version (must be ≥3.0.0)
+
+Error: "Permission denied"
+Fix: Grant permissions in device settings
+
+Error: "API call failed"
+Fix: Check API key in data.dart
+
+
+PROJECT SIZE:
+=============
+
+Approximate sizes:
+- Source code: ~50 KB
+- APK (release): ~20-30 MB
+- With images cached: ~50-100 MB
+
+
+SUPPORTED PLATFORMS:
+====================
+
+✓ Android (API 21+)
+✓ Android 13+ (with new permission model)
+✗ iOS (requires additional setup)
+✗ Web (wallpaper features won't work)
+
+
+CREDITS:
+========
+
+- Pexels API for wallpapers
+- Flutter framework
+- All package authors
+- All contributing photographers
+
+
+END OF STRUCTURE DOCUMENTATION
+================================
