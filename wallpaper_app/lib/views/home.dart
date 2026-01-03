@@ -86,11 +86,26 @@ class CategoriesTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(right: 4),
+
       child: Stack(children:<Widget>[
-        Container(
-          child: Image.network(imgUrl),
+        ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Image.network(imgUrl,width: 100,height: 50,fit: BoxFit.cover,),
         ),
-        Container(child: Text(title),)
+        Container(
+          width: 100,
+          height: 50,
+          color: Colors.black26,
+          alignment: Alignment.center,
+          child: Text(title,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w500,
+              fontSize: 15
+            ),
+          ),
+        )
       ],),
     );
   }
