@@ -55,9 +55,13 @@ class _HomeState extends State<Home> {
             ),
 
             SizedBox(height: 16,),
-            ListView.builder(
+            Container(
+              height: 80,
+              child:ListView.builder(
+                padding: EdgeInsets.symmetric(horizontal: 24),
               itemCount: categories.length,
               shrinkWrap: true,
+              scrollDirection:Axis.horizontal,
               itemBuilder: (context,index){
                 return CategoriesTitle(
                   title: categories[index].categoriesName,
@@ -65,6 +69,9 @@ class _HomeState extends State<Home> {
                 );
               },
             ),
+
+            )
+            
           ],
         ),
       ),
